@@ -1,0 +1,42 @@
+<!-- CSS goes here -->
+<style>
+</style>
+
+
+<!-- Markup goes here -->
+
+
+<script>
+
+    // #region Summary Page Index
+
+    // Page Globals
+
+    // Page Flags
+
+    // Page Events
+    // ** TODO: Add page control event handlers here
+
+    // Page GETs
+    var get_cards = function () {
+        return $.when(ajax_get(`/summary/cards`, {})).done(rtn => {
+            if (rtn.value === 0) {
+                console.log('call success', rtn.results);
+            }
+        });
+    };
+
+    // Page POSTs
+    // ** TODO: Add REST POST methods here
+
+    // Page Controls - Setup and Event Mapping
+
+    // Page SUBs
+    // ** TODO: Add subscription/websocket methods here
+
+    // Main
+
+    // Helpers
+
+    // #endregion
+</script>

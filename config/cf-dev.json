@@ -1,0 +1,18 @@
+{
+    "VCAP_SERVICES": {
+        "postgres-2.0": [
+        ],
+        "predix-blobstore": [
+        ],
+        "predix-uaa": [
+        ],
+        "appUuid": "",
+        "appDataServices": [
+        ],
+        "appSettings": {
+            "git-local": {
+                "pkc": []
+            }
+        }
+    }
+}

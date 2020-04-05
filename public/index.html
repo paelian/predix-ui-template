@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>Base UI Template</title>
+
+    <link href="css/base.css" rel="stylesheet">
+    <link href="css/seed-app.css" rel="stylesheet">
+    <link href="./bower_components/noty/lib/noty.css" rel="stylesheet">
+    <style>
+        html,
+        body {
+            padding: 0px;
+            margin: 0px;
+            background: #eee;
+            width: 100%;
+            height: 100%;
+        }
+
+        div#mainPageContent {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+
+        div.title-bar {
+            height: 29px;
+            min-height: 29px;
+            background: #eee;
+            padding: 0px;
+            margin: 0px;
+            border-bottom: 0px solid #4c4c4c;
+
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+
+        div.title-bar.hidden {
+            height: 0px;
+            visibility: hidden;
+        }
+
+        div.header-title {
+            padding: 10px;
+            font-size: 1.1em;
+        }
+
+        div.footer-bar {
+            height: 60px;
+            min-height: 60px;
+            font-size: 0.9em;
+            background: #5266db;
+            padding: 0px;
+            margin: 0px;
+            color: #fff;
+            border-top: 1px solid #4c4c4c;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center
+        }
+
+        div.footer-accent-bar {
+            font-size: 0.9em;
+            background: #8091f1;
+            padding: 0px;
+            margin: 0px;
+            color: #fff;
+            border-top: 1px solid #7c7c7c;
+            height: 5px;
+        }
+
+        div#content_block {
+            flex: 1 1 auto;
+            position: relative;
+        }
+
+        div#page_load_contents {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow-y: auto;
+            z-index: 0;
+        }
+
+        pkc-tabstrip {
+            --pkc-tabstrip-header-height: 60px;
+            --pkc-header-font-size: 0.9em;
+            --pkc-tabstrip-bgcolor-hover: #8091f1;
+            --pkc-tabstrip-color-hover: #eee;
+            --pkc-tabstrip-selected-color: #5266db;
+            --pkc-header-bgcolor: #5266db;
+            --pkc-tabstrip-selected-bgcolor: #eee;
+        }
+
+        pdx-brandbar {
+            --logo-width: 90px;
+        }
+
+        pdx-menunav#menunav {
+            --menu-item-height: 30px;
+            --background-color: #ccc;
+            --width: 200px;
+        }
+
+        pdx-menubar#optionsMenu {
+            --width: 200px;
+            --background-color: #eee;
+            /* visibility: hidden;  */
+        }
+
+        field-select#currentOpCo {
+            --disabled-blocker-color: #eee;
+        }
+    </style>
+</head>
+
+
+
+<body>
+
+    <div id="mainPageContent">
+
+        <pdx-brandbar title="Base Predix UI Template" logo="/images/General_Electric_logo.svg"></pdx-brandbar>
+
+        <!-- 1. title bar -->
+        <div class="title-bar ">
+            <pdx-menubar id="optionsMenu"></pdx-menubar>
+            <div style="flex: 1 1 auto; visibility: hidden">
+                <pkc-tabstrip id="nav"></pkc-tabstrip>
+            </div>
+            <div style="margin-right:10px;display:flex;flex-direction:row;">
+                <user-info id="userInfo"></user-info>
+            </div>
+        </div>
+        <!-- title ends -->
+
+        <div id="content_block">
+            <div id="page_load_contents"></div>
+            <pdx-menunav id="menunav"></pdx-menunav>
+        </div>
+
+
+    </div>
+
+    <!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
+    <script src="./node_modules/axios/dist/axios.min.js"></script>
+    <script src="./bower_components/noty/lib/noty.js" type="text/javascript"></script>
+    <script src="./node_modules/moment/min/moment.min.js" type="text/javascript"></script>
+    <!-- <script type="text/javascript" src="https://cdn.plot.ly/plotly-latest.min.js"></script> -->
+    <script type="text/javascript" src="./node_modules/plotly.js-dist/plotly.js"></script>
+    <script src="./lib/js/turf.min.js" charset="utf-8"></script>
+    <script type="module" src="/lib/bundle.min.js"></script>
+    <script type="module">
+        import { BlockerControl } from '/lib/bundle.min.js';
+
+        ((ns) => {
+
+            ns.BlockerControl = BlockerControl;
+
+        })(window.GED = window.GED || {});
+
+    </script>
+    <script defer type="text/javascript" src="./lib/js/axios_ajax.js"></script>
+    <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="/lib/js/jquery.debounce.min.js"></script>
+
+    <script>
+
+        // #region Main Page Index
+
+        // Page Globals
+        var _userinfo = null;
+        var _lastTabIdSelected = null;
+        var _opcos = null; var currentOpCo = null;
+        var ref_datetime = new moment('2019-12-13 00:00:00');
+        var ref_nextdatetime = new moment('2019-12-13 00:04:00');
+        var ref_minuteselapsed = 0;
+
+        var __global_context_options = [
+            {
+                "id": 1,
+                "label": "Main View",
+                "icon": "home",
+                "event": e => { $('pdx-menunav')[0].close(); setTimeout(() => { $('pdx-menubar#optionsMenu')[0].caption = e.label; document.getElementById('nav').selectTab('Home'); }, 50) }
+            },
+            {
+                "id": 2,
+                "label": "Testing",
+                "icon": "bookmark_border",
+                "event": e => { $('pdx-menunav')[0].close(); setTimeout(() => { $('pdx-menubar#optionsMenu')[0].caption = e.label; document.getElementById('nav').selectTab('Testing'); }, 50) }
+            }
+        ];
+        var __view_context_options = [];
+
+        // Page Flags
+
+        // Page Events
+        // ** TODO: Add page control event handlers here
+
+        // Page GETs
+        var get_userinfo = () => {
+            return ajax_get(`/userinfo`).then(rtn => {
+                _userinfo = rtn;
+                $('user-info#userInfo')[0].user = _userinfo.user_name;
+            });
+        };
+
+        // Page POSTs
+        // ** TODO: Add REST POST methods here
+
+        // Page Controls - Setup and Event Mapping
+        $('user-info#userInfo')[0].addEventListener('Logout', e => {
+            window.location.href = 'logout.html';
+        });
+        $('pdx-menubar#optionsMenu')[0].addEventListener('ItemSelected', e => {
+            console.log('menu bar item selected', e.detail.value);
+            if (e.detail.value.icon === "menu") {
+                let menu = $('pdx-menunav#menunav')[0];
+                if (menu.state === "open") {
+                    menu.close();
+                } else {
+                    menu.open();
+                }
+            }
+        });
+        $('pdx-menunav#menunav')[0].addEventListener('ItemSelected', e => {
+            console.log('menu item selected', e.detail.value);
+        });
+        // var navData = new Map([
+        //     ["Summary", { "label": "Summary", "id": "Summary", "icon": "home", "qry": "summary" }],
+        // ]);
+        var navData = new Map([
+            // var navAdminData = new Map([
+            // ["Admin", { "label": "Admin", "id": "Admin", "icon": "", "qry": "admin" }],
+            // ["Test-Map", { "label": "Testing - Map", "id": "Test-Map", "icon": "", "qry": "testing/page/map" }],
+            ["Home", { "label": "Main View", "id": "Home", "icon": "home", "qry": "summary" }],
+            // ["Charts", { "label": "Charts", "id": "Charts", "icon": "bar_Chart", "qry": "summary/page/charts" }],
+            ["Testing", { "label": "Testing", "id": "Testing", "icon": "bookmark_border", "qry": "summary/page/testing" }],
+        ]);
+        document.getElementById('nav').addEventListener('tabSelected', e => {
+            var id = e.detail.tab.id;
+            if (id != _lastTabIdSelected) {
+                _loadPage(e.detail.tab.qry);
+                _lastTabIdSelected = id;
+
+                $('pdx-menubar#optionsMenu')[0].caption = e.detail.tab.label; //<-- this is only needed to maintain consistency between the 2 types of global page loads (via the 'hidden' nav control and the newer left side bar 'pdx-menunav')
+            }
+
+        });
+
+        // Page SUBs
+        // ** TODO: Add subscription/websocket methods here
+
+        // Main
+        $(() => {
+            Promise.all([
+                get_userinfo()
+            ]).then(() => {
+                setTimeout(() => {
+                    _setStyles();
+                    document.getElementById('nav').tabs = [...navData.values()];
+
+                    setTimeout(() => { document.getElementById('nav').selectTab('Home'); }, 100);
+                    console.log('Ready.');
+                }, 100); // <-- add _initialized/defer var to this control instead of timeout
+            });
+        });
+
+        // Helpers
+        var _delay = ms => { var d = new Promise((resolve, reject) => { setTimeout(() => { resolve(true) }, ms ? ms : 500) }); return d; };
+        var _loadPage = (qry, container = 'page_load_contents', optionsObj = { resetContextMenu: true }) => {
+            subMain = null; _evt_minute_sync = null;
+            if (optionsObj && optionsObj.resetContextMenu) {
+                __view_context_options = [];
+            }
+            return ajax_get(qry).then(results => {
+                if (results.value === 0) {
+                    var data = results.results;
+                    $(`div#${container}`).empty().append(data);
+
+                    if (typeof subMain === 'function') {
+                        Promise.all([_delay()]).then(() => {
+                            client_heartbeat();
+                            subMain();
+                        });
+                    }
+
+                    __context_menu_initialize();
+                }
+            });
+        };
+        var _generateDefinitionForObject = function (obj) {
+            let rtn = [];
+            for (let key of Object.keys(obj)) {
+                rtn.push({
+                    id: key,
+                    label: key,
+                    css: { width: '100' },
+                    sort: true,
+                    type: 'string',
+                    hidden: true
+                });
+            }
+            console.log(JSON.stringify(rtn));
+        }
+        var _setStyles = function () {
+            document.documentElement.style.setProperty('--lumo-font-family', 'GE Inspira Sans');
+            document.documentElement.style.setProperty('--lumo-font-size-m', '0.9rem');
+        };
+        var _get_opco = function () {
+            let rtn = _opcos.find(el => el.id.toLowerCase() === currentOpCo.value.value.toLowerCase());
+            return rtn;
+        };
+
+        var client_heartbeat = function () {
+
+            __minute_sync_check();
+
+            // console.log(`...CLIENT PULSE...lub...`);
+            ajax_get('/heartbeat', null, false).then(rtn => {
+                // console.log(rtn.results);
+                setTimeout(client_heartbeat, 5000);
+            });
+        }
+
+        var __minute_sync_check_accum = 0;
+        var __minute_sync_check = () => {
+            __minute_sync_check_accum += 5;
+            if (__minute_sync_check_accum > 55) {
+                __minute_sync_check_accum = 0;
+                if (window["_evt_minute_sync"] && typeof window["_evt_minute_sync"]) {
+                    _evt_minute_sync();
+                }
+            }
+        };
+
+        var __context_menu_initialize = function () {
+            let newitems = new Map(
+                __global_context_options.map(el => [el.id, el])
+            );
+            for (let opt of __view_context_options) {
+                newitems.set(opt.id, opt);
+            }
+            $('pdx-menunav')[0].items = [...newitems.values()];
+        };
+        // #endregion
+
+    </script>
+
+</body>
+
+</html>

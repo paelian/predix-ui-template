@@ -1,0 +1,13 @@
+---
+  applications:
+    - name: base-predix-template-ui-dev
+      memory: 1G
+      instances: 1
+      buildpack: https://github.com/cloudfoundry/nodejs-buildpack.git#v1.6.56
+      command: npm start
+      path: dist
+  services:
+  env:
+      node_env: cloud
+      appUuid: e2dd6893-b3ea-460f-92c7-81c6ff5fc8ee
+  

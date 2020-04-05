@@ -1,0 +1,23 @@
+{
+  "name": "contact-energy-datagateway",
+  "description": "",
+  "main": "",
+  "authors": [
+    "Peter Code <peter.code@ge.com>"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "noty": "^3.1.4"
+  },
+  "devDependencies": {
+  }
+}

@@ -1,0 +1,23 @@
+.corp-logo {
+    background-image: url(../images/logo.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    
+}
+
+.ge-corp-logo {
+    background-image: url(../images/General_Electric_logo.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;    
+}
+
+div.centeredMiddle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+

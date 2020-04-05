@@ -1,0 +1,261 @@
+/*------------------------------------*    #PX-COLORS-DESIGN
+\*------------------------------------*/
+/**
+ * Neutral Palette (gray20 is darkest, gray1 is lightest)
+ */
+/**
+    * Define grey = gray to avoid dev typos
+    */
+/**
+ * Actionable Palette
+ */
+/**
+ * Selection Palette
+ */
+/**
+ * Dark Actionable Palette
+ */
+/**
+ * Alerts and Status
+ */
+/**
+ * Data Visualization
+ */
+/**
+     * Orange
+     */
+/**
+     * Yellow
+     */
+/**
+     * Yellow Green
+     */
+/**
+     * Green
+     */
+/**
+     * Teal
+     */
+/**
+     * Aqua
+     */
+/**
+     * Cyan
+     */
+/**
+     * Blue
+     */
+/**
+     * Violet
+     */
+/**
+     * Purple
+     */
+/**
+     * Pink
+     */
+/**
+     * Red
+     */
+/**
+     * Brown
+     */
+/**
+     * Gray
+     */
+/**
+     * Define grey = gray to avoid dev typos
+     */
+/**
+     * Salmon
+     */
+/* @font-face {
+  font-family: "GE Inspira Sans";
+  src: url("https://cdn.predix-ui.com/px-cdn/type/2.0.0/GEInspiraSans.eot");
+  src: url("https://cdn.predix-ui.com/px-cdn/type/2.0.0/GEInspiraSans.eot?#iefix") format("embedded-opentype"), url("https://cdn.predix-ui.com/px-cdn/type/2.0.0/GEInspiraSans.woff") format("woff"), url("https://cdn.predix-ui.com/px-cdn/type/2.0.0/GEInspiraSans.ttf") format("truetype"), url("https://cdn.predix-ui.com/px-cdn/type/2.0.0/GEInspiraSans.svg#GE Inspira Sans") format("svg"); }
+
+@font-face {
+  font-family: "GE Inspira Sans";
+  font-weight: normal;
+  font-style: italic;
+  src: url("https://cdn.predix-ui.com/px-cdn/type/2.0.0/GEInspiraSans-Italic.eot");
+  src: url("https://cdn.predix-ui.com/px-cdn/type/2.0.0/GEInspiraSans-Italic.eot?#iefix") format("embedded-opentype"), url("https://cdn.predix-ui.com/px-cdn/type/2.0.0/GEInspiraSans-Italic.woff") format("woff"), url("https://cdn.predix-ui.com/px-cdn/type/2.0.0/GEInspiraSans-Italic.ttf") format("truetype"), url("https://cdn.predix-ui.com/px-cdn/type/2.0.0/GEInspiraSans-Italic.svg#GE Inspira Sans") format("svg"); }
+
+@font-face {
+  font-family: "GE Inspira Sans";
+  font-weight: bold;
+  font-style: normal;
+  src: url("https://cdn.predix-ui.com/px-cdn/type/2.0.0/GEInspiraSans-Bold.eot");
+  src: url("https://cdn.predix-ui.com/px-cdn/type/2.0.0/GEInspiraSans-Bold.eot?#iefix") format("embedded-opentype"), url("https://cdn.predix-ui.com/px-cdn/type/2.0.0/GEInspiraSans-Bold.woff") format("woff"), url("https://cdn.predix-ui.com/px-cdn/type/2.0.0/GEInspiraSans-Bold.ttf") format("truetype"), url("https://cdn.predix-ui.com/px-cdn/type/2.0.0/GEInspiraSans-Bold.svg#GE Inspira Sans") format("svg"); }
+
+@font-face {
+  font-family: "GE Inspira Sans";
+  font-weight: bold;
+  font-style: italic;
+  src: url("https://cdn.predix-ui.com/px-cdn/type/2.0.0/GEInspiraSans-BoldItalic.eot");
+  src: url("https://cdn.predix-ui.com/px-cdn/type/2.0.0/GEInspiraSans-BoldItalic.eot?#iefix") format("embedded-opentype"), url("https://cdn.predix-ui.com/px-cdn/type/2.0.0/GEInspiraSans-BoldItalic.woff") format("woff"), url("https://cdn.predix-ui.com/px-cdn/type/2.0.0/GEInspiraSans-BoldItalic.ttf") format("truetype"), url("https://cdn.predix-ui.com/px-cdn/type/2.0.0/GEInspiraSans-BoldItalic.svg#GE Inspira Sans") format("svg"); } */
+
+  @font-face {
+    font-family: "GE Inspira Sans";
+    src: url('../fonts/GEInspiraSans.eot');
+    src: url('../fonts/GEInspiraSans.eot?#iefix') format("embedded-opentype"), url('../fonts/GEInspiraSans.woff') format("woff"), url('../fonts/GEInspiraSans.ttf') format("truetype"), url('../fonts/GEInspiraSans.svg#GE Inspira Sans') format("svg"); }
+  
+  @font-face {
+    font-family: "GE Inspira Sans";
+    font-weight: normal;
+    font-style: italic;
+    src: url("../fonts/GEInspiraSans-Italic.eot");
+    src: url("../fonts/GEInspiraSans-Italic.eot?#iefix") format("embedded-opentype"), url("../fonts/GEInspiraSans-Italic.woff") format("woff"), url("../fonts/GEInspiraSans-Italic.ttf") format("truetype"), url("../fonts/GEInspiraSans-Italic.svg#GE Inspira Sans") format("svg"); }
+  
+  @font-face {
+    font-family: "GE Inspira Sans";
+    font-weight: bold;
+    font-style: normal;
+    src: url("../fonts/GEInspiraSans-Bold.eot");
+    src: url("../fonts/GEInspiraSans-Bold.eot?#iefix") format("embedded-opentype"), url("../fonts/GEInspiraSans-Bold.woff") format("woff"), url("../fonts/GEInspiraSans-Bold.ttf") format("truetype"), url("../fonts/GEInspiraSans-Bold.svg#GE Inspira Sans") format("svg"); }
+  
+  @font-face {
+    font-family: "GE Inspira Sans";
+    font-weight: bold;
+    font-style: italic;
+    src: url("../fonts/GEInspiraSans-BoldItalic.eot");
+    src: url("../fonts/GEInspiraSans-BoldItalic.eot?#iefix") format("embedded-opentype"), url("../fonts/GEInspiraSans-BoldItalic.woff") format("woff"), url("../fonts/GEInspiraSans-BoldItalic.ttf") format("truetype"), url("../fonts/GEInspiraSans-BoldItalic.svg#GE Inspira Sans") format("svg"); }
+  
+  
+@font-face {
+  font-family: "LCD Normal";
+  font-weight: normal;
+  src: url(../fonts/LiquidCrystal-Light.otf);
+}
+
+html {
+  font-family: "GE Inspira Sans", sans-serif; }
+
+/**
+ * Font weights
+ */
+.weight--normal {
+  font-weight: 400 !important; }
+
+.weight--bold {
+  font-weight: 600 !important; }
+
+/**
+ * the html and :host declarations cannot be adjacent to one other
+ * or cssmin will combine them into a single rule, breaking in
+ * Safari and Firefox.
+ */
+:host {
+  font-family: "GE Inspira Sans", sans-serif; }
+
+/* Text-level semantics
+   ========================================================================== */
+/**
+ * Address styling not present in IE 8/9/10/11, Safari, and Chrome.
+ */
+abbr[title] {
+  border-bottom: 1px dotted; }
+
+/**
+ * Address style set to `bolder` in Firefox 4+, Safari, and Chrome.
+ */
+b,
+strong {
+  font-weight: bold; }
+
+/**
+ * Address styling not present in Safari and Chrome.
+ */
+dfn {
+  font-style: italic; }
+
+/**
+ * Address styling not present in IE 8/9.
+ */
+mark {
+  background: #ff0;
+  color: #000; }
+
+/**
+ * Address inconsistent and variable font size in all browsers.
+ */
+small {
+  font-size: 80%; }
+
+/**
+ * Prevent `sub` and `sup` affecting `line-height` in all browsers.
+ */
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline; }
+
+sup {
+  top: -0.5em; }
+
+sub {
+  bottom: -0.25em; }
+
+div.divField {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: baseline;
+  margin-top: 2px;
+  margin-bottom: 3px;
+}
+
+div.divLabel {
+  margin-right: 10px;
+}
+
+div.divValue {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+div.divHidden {
+  visibility: hidden;
+  width: 0px; height: 0px;
+}
+
+div.borderShadow
+{
+    -webkit-box-shadow: 3px 3px 5px rgba(8, 8, 8, 0.5);
+    -moz-box-shadow: 3px 3px 5px rgba(8, 8, 8, 0.5);
+    box-shadow: 3px 3px 5px rgba(8, 8, 8, 0.5);
+}
+
+div.divButton {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+  height: 28px; width: 78px;
+  border: 1px solid #333;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+div.divButton:hover {
+  cursor: pointer
+}
+
+div.divButton > div.buttonText {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  overflow: hidden;
+}
+
+div.divValue input[type=text] {
+  height: 24px;
+  flex: 1 1 auto;
+  margin-right: 10px;
+}

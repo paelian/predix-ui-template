@@ -1,0 +1,223 @@
+<!-- CSS goes here -->
+<style>
+    div#layout_toolbar {
+        height: 35px;
+        background-color: #ccc;
+        position: relative;
+    }
+
+    div#currentTimePrediction_banner {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        z-index: 0;
+    }
+
+    pdx-menubar#layoutToolbar {
+        --background-color: #ffffff00;
+    }
+
+    div#layoutContainer {
+        width: calc(100% - 30px);
+        height: calc(100% - 80px);
+        /* border: 1px solid green; */
+        /* overflow: hidden; */
+
+        /* Will need to change the following at some point to allow dynamic sizing, but for now... */
+        max-width: 1890px;
+        max-height: 720px;
+
+        margin-left: auto;
+        margin-right: auto;
+        /* position: absolute;
+        top: 0px;
+        left: 10px; */
+
+    }
+
+    div#layoutContainer {
+        min-width: 1890px;
+        z-index: 0;
+    }
+
+    muuri-gridresizable {
+        --drag-handle-color: #707070;
+    }
+
+    div.divValue {
+        font-weight: bold;
+    }
+
+    div.divField {
+        margin-right: 25px;
+    }
+
+</style>
+
+
+<!-- Markup goes here -->
+<div id="layout_toolbar">
+    <div id="currentTimePrediction_banner">
+        <div class="divField">
+            <div class="divLabel">Current Time:</div>
+            <div id="value_currenttime" class="divValue"></div>
+        </div>
+    </div>
+    <div style="position:absolute;top:0;left:0;height:100%;width:100%;z-index:1;">
+        <pdx-menubar id="layoutToolbar" showmenubutton="false"></pdx-menubar>
+    </div>
+</div>
+
+<div id="layoutContainer">
+    <muuri-gridresizable containers='{}'>
+    </muuri-gridresizable>
+
+</div>
+
+<script>
+
+    // #region Summary Page Index
+
+    // Page Globals
+    var _lastdata = new Map();
+
+    // Page Overloads
+    __view_context_options = [
+        {
+            "id": 1,
+            "label": "Main View",
+            "icon": "home",
+            "event": e => {
+                $('pdx-menunav')[0].close();
+                setTimeout(() => {
+                    $('pdx-menubar#optionsMenu')[0].caption = e.label;
+                    _loadPage("summary", "page_load_contents", { resetContextMenu: false });
+                }, 50)
+            }
+        },
+        // {
+        //     "id": 2,
+        //     "label": "ETR Prediction Model",
+        //     "icon": "bar_chart",
+        //     "event": e => {
+        //         $('pdx-menunav')[0].close();
+        //         setTimeout(() => {
+        //             $('pdx-menubar#optionsMenu')[0].caption = e.label;
+        //             _loadPage("summary/page/etr", "page_load_contents", { resetContextMenu: false });
+        //         }, 150)
+        //     }
+        // }
+    ];
+
+    var _evt_minute_sync = function () {
+        console.log('minute sync fired: ', moment().format('YYYY-MM-DD HH:mm:ss'));
+        $('div#value_currenttime')[0].innerHTML = moment().format('YYYY-MM-DD HH:mm');
+    };
+
+    // Test data
+    var layouts = new Map([
+        ["view1", {
+            containers: { "one": { "width": "1310px", "height": "780px" } },
+            markup: `
+                <div slot="one" id="panel1">
+                    
+                    this is the main panel
+                    <br />
+                    TODO - replace this text with something experimental!! :)
+
+                    
+                </div>
+            `
+        }]
+    ]);
+
+    // Page Flags
+
+    // Page Events
+    // ** TODO: Add page control event handlers here
+
+    // Page GETs
+    // var get_outages = function (bounds = null) {
+    //     // console.log('outages requested')
+    //     var timeline = $('exl-timelinepanel#timeline')[0].timelineBounds.map(el => el.key);
+
+    //     return $.when(ajax_get(`/summary/outages?opco=${_get_opco().id}&refTimeLow=${moment(timeline[0]).format('YYYY-MM-DD HH:mm:ss')}&refTimeHigh=${moment(timeline[1]).format('YYYY-MM-DD HH:mm:ss')}`, Object.assign({}, bounds), false)).done(rtn => {
+    //         if (rtn.value === 0) {
+    //             let data = rtn.results.results;
+    //             _lastdata.set('get_outages', rtn.results.results);
+    //         }
+    //     });
+    // };
+
+    // Page POSTs
+    // ** TODO: Add REST POST methods here
+
+    // Page Controls - Setup and Event Mapping
+    $("pdx-menubar#layoutToolbar")[0].rightbuttons = [
+        {
+            "id": 1,
+            "label": "Locked",
+            "icon": "lock"
+        }
+    ];
+    $("pdx-menubar#layoutToolbar")[0].addEventListener("ItemSelected", e => {
+        switch (e.detail.value.label) {
+            case "Locked":
+                grid.unlock();
+                e.detail.sender.rightbuttons = [
+                    {
+                        "id": 1,
+                        "label": "Unlocked",
+                        "icon": "lock_open"
+                    }
+                ];
+                break;
+            case "Unlocked":
+                grid.lock();
+                e.detail.sender.rightbuttons = [
+                    {
+                        "id": 1,
+                        "label": "Locked",
+                        "icon": "lock"
+                    }
+                ];
+                break;
+            default:
+        }
+    });
+    var grid = $('muuri-gridresizable')[0];
+
+    // Page SUBs
+    // ** TODO: Add subscription/websocket methods here
+
+    // Main
+    var subMain = function () {
+        grid.innerHTML = layouts.get("view1").markup;
+        grid.containers = layouts.get("view1").containers;
+        _evt_minute_sync();
+
+        setTimeout(() => { // TODO - can/should do grid.ready.then(() => {}) instead here
+            $('muuri-gridresizable').on('MuuriGridPanelResized', e => {
+                // _rebind_panels();
+            });
+
+            // TODO - do some page initialization here
+
+            grid.sizeContainer();
+
+        }, 150);
+
+
+    };
+
+    // Helpers
+
+
+    // #endregion
+</script>
